@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import Todo from './Todo'
+import { ListGroup } from 'reactstrap'
 
 
 export default class TodoList extends Component {
@@ -21,6 +22,12 @@ export default class TodoList extends Component {
     }
 
     toggleCheck = (id) => {
+        let token = null
+        let config = {
+            headers: {
+                'AUTHORIZATION': 'TOKEN ' + token
+            }
+        }
         let url = '/todo/' + id + '/trigger_complete/';
         axios.get(url).then((data) => {
             if (data.data.success){
@@ -40,13 +47,13 @@ export default class TodoList extends Component {
 
     render() {
         return (
-            <div>
+            <ListGroup>
                 {
                     this.state.todos.map((todo) => {
                     return <Todo todo={todo} toggleCheck={this.toggleCheck} toggleDelete={this.toggleDelete} key={todo.id}/>
                     })
                 }
-            </div>
+            </ListGroup>
         )
     }
 }

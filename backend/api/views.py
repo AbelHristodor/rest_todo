@@ -13,7 +13,7 @@ class TodoViewset(viewsets.ModelViewSet):
     """
 
     serializer_class = TodoSerializer
-    permission_classes = [permissions.AllowAny] # Authentication not implemented yet
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         return Todo.objects.filter(is_active=True)
