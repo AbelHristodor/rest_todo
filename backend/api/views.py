@@ -8,12 +8,12 @@ from .models import Todo
 
 
 class TodoViewset(viewsets.ModelViewSet):
-    """ Todo model viewsets. Includes Retrieve, Put, Update,
-        Destroy, set_completed and set_deleted
+    """ Todo model viewsets. Also includes get_completed, trigger_complete
+        and activate methods.
     """
 
     serializer_class = TodoSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.AllowAny] # Authentication not implemented yet
 
     def get_queryset(self):
         return Todo.objects.filter(is_active=True)

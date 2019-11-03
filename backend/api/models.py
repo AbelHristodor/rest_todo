@@ -30,4 +30,3 @@ class Todo(models.Model):
     def publish(self):
         """ Alternative save method """
         return self.save()
-    
