@@ -12,6 +12,8 @@ Make sure you have [docker](https://docs.docker.com/install/) and [docker-compos
     docker-compose up --build
 ```
 
+The frontend will be running at `localhost:3000` while the backend will be running at `localhost:8000`
+
 ### What i learned
 
 - Viewsets/Custom API endpoints
