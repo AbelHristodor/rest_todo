@@ -1,5 +1,6 @@
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.authentication import TokenAuthentication
 from rest_framework import viewsets, renderers, permissions, status
 
 from . import success_response, failure_response
@@ -13,7 +14,8 @@ class TodoViewset(viewsets.ModelViewSet):
     """
 
     serializer_class = TodoSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = (permissions.IsAuthenticated,)
+    authentication_classes = (TokenAuthentication,)
 
     def get_queryset(self):
         return Todo.objects.filter(is_active=True)

@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
 import './App.css';
-import Todopage from './components/pages/Todo/Todopage'
-import Mynavbar from './components/Mynavbar'
-import Login from './components/pages/Auth/Login'
 
 export default class App extends Component {
  
@@ -10,9 +7,7 @@ export default class App extends Component {
   
       return (
         <div className="App">
-            <Mynavbar />
-            <Login />
-            <Todopage />
+            <h1>Hello World</h1>
         </div>
       )
   }
