@@ -2,7 +2,7 @@
 
 Todo app made using Django's REST Framework for the backend and React.js for the frontend.
 
-The app is dockerized. There are 2 containers, one for the backend and one for the frontend which are run simultaneously thanks to *docker-compose*.
+The app is dockerized. There are 2 containers, one for the backend and one for the frontend which are running simultaneously thanks to *docker-compose*.
 
 ## Install
 
@@ -21,3 +21,5 @@ The frontend will be running at `localhost:3000` while the backend will be runni
 - Serializers/ModelSerializer
 - React Class-based Components
 - Docker-compose
+- React Hooks
+- Context API
