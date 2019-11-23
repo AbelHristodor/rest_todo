@@ -1,26 +1,31 @@
-import React, { Component } from 'react'
-import './App.css';
+import React, { useState } from 'react'
+import { Route, BrowserRouter as Router  } from 'react-router-dom'
+import Home from './pages/Home'
+import TodoList from './pages/Todo'
 import Login from './components/Login'
-import TodoList from './components/TodoList'
+import PrivateRoute from './PrivateRoute'
+import { AuthContext } from './context/Auth'
+import './App.css';
 
-export default class App extends Component {
-    constructor() {
-        super()
-        this.state = {
-            token: null,
-            isLoggedIn: false
-        }
-    }
-    setToken = (token) => {
-        this.setState({ token, isLoggedIn: !this.state.isLoggedIn });
-    }
+export default function App(props) {
+    const [authToken, setAuthToken] = useState();
 
-  render() {
-      return (
-        <div className="App">
-            { !this.state.isLoggedIn ? (<Login setToken={this.setToken} />) : <h1>Logged In</h1> }
-            { this.state.isLoggedIn ? (<TodoList token={this.state.token} />) : null}
-        </div>
-      )
-  }
+    const setToken = (data) => {
+        localStorage.setItem("token", JSON.stringify(data));
+        setAuthToken(data);
+    }
+  
+    return (
+            <AuthContext.Provider value={{authToken, setAuthToken: setToken}}>
+                <Router>
+
+                    <Route exact path="/" component={Home} />
+                    <Route path="/login" component={Login} />
+                    <PrivateRoute path="/todo" component={TodoList} /> 
+                </Router>
+            </AuthContext.Provider>
+    )
+  
 }
+
+
