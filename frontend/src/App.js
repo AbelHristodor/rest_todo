@@ -18,14 +18,10 @@ export default function App(props) {
     return (
             <AuthContext.Provider value={{authToken, setAuthToken: setToken}}>
                 <Router>
-
                     <Route exact path="/" component={Home} />
                     <Route path="/login" component={Login} />
                     <PrivateRoute path="/todo" component={TodoList} /> 
                 </Router>
             </AuthContext.Provider>
     )
-  
 }
-
-
