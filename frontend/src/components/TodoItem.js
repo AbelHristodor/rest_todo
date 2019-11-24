@@ -1,15 +1,38 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { ListGroupItem } from 'reactstrap'
-import { FaCheckCircle } from 'react-icons/fa'
+import { FaCheckCircle, FaTrashAlt } from 'react-icons/fa'
+import { useAuth } from '../context/Auth'
+import axios from 'axios'
 
-export default class TodoItem extends Component {
+export default function TodoItem(props) {
+    const [isError, setIsError] = useState(false)
+    const { authToken } = useAuth()
 
-    render() {
-        return (
-            <ListGroupItem>
-                <p>{ this.props.todo.name }</p>
-                <button>{ <FaCheckCircle/> }</button>
-            </ListGroupItem>
-        )
-    }
+    const handleClick = (e) => {
+        let config = {
+            headers: {
+                Authorization: "Token " + authToken
+            }
+        }
+        let url = props.todo.is_completed ? `/todo/${props.todo.id}` : `/todo/${props.todo.id}/trigger_complete/`
+        let method = props.todo.is_completed ? "delete" : "get"
+
+        axios({method, url, config}).then((data) => {
+            data.data.success && props.refresh()
+        }).catch((err) => setIsError(true))
+    } 
+
+    return (
+        <ListGroupItem>
+            <p>{ props.todo.name }</p>
+            { props.todo.is_completed ? 
+            <button type="button" onClick={handleClick}> <FaTrashAlt/> </button>
+            :
+            <button type="button" onClick={handleClick}><FaCheckCircle/></button>
+            }
+            { isError && <p>An error has occured</p>}
+            
+        </ListGroupItem>
+    )
+    
 }

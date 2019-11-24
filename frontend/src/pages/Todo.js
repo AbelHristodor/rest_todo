@@ -18,11 +18,19 @@ export default function TodoList() {
     
         axios.get('/todo/', config).then((data) => {
             if(data.status === 200) {
-                setTodos([...data.data])
+                setTodos([...data.data.sort(
+                    (a, b) => {
+                        return Date.parse(a.created_on) - Date.parse(b.created_on)
+                    }
+                )])
             } else {
                 setIsError(true)
             }
         }).catch((err) => setIsError(true))
+    }
+
+    const handleRefresh = () => {
+        getTodos()
     }
 
     todos.length === 0 && getTodos()
@@ -30,7 +38,12 @@ export default function TodoList() {
     return (
         <div>
             <ListGroup>
-                {todos.map((todo) => <TodoItem todo={todo} key={todo.id} />)}
+                <p className="lead">Todos:</p>
+                {todos.map((todo) => ( !todo.is_completed && <TodoItem todo={todo} key={todo.id} refresh={handleRefresh} />) )}
+
+                <p className="lead">Completed:</p>
+                {todos.map((todo) => ( todo.is_completed && <TodoItem todo={todo} key={todo.id} refresh={handleRefresh} />) )}
+                
                 { isError && <p>An error has occured</p>}
             </ListGroup>
         </div>
