@@ -1,42 +1,45 @@
-import React, { useState } from 'react';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
-import { Redirect } from 'react-router-dom'
-import { useAuth } from '../context/Auth'
-import axios from 'axios'
+import React, { useState } from "react";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { Redirect } from "react-router-dom";
+import { useAuth } from "../context/Auth";
+import axios from "axios";
 
 export default function Login(props) {
-    const [isLoggedIn, setLoggedIn] = useState(false)
-    const [isError, setIsError] = useState(false)
-    const [userName, setUserName] = useState("")
-    const [password, setPassword] = useState("")
-    const { setAuthToken } = useAuth()
-    const referer = "/"
-    
-    const handleSubmit = (e) => {
+    const [isLoggedIn, setLoggedIn] = useState(false);
+    const [isError, setIsError] = useState(false);
+    const [userName, setUserName] = useState("");
+    const [password, setPassword] = useState("");
+    const { setAuthToken } = useAuth();
+    const referer = "/";
+
+    const handleSubmit = e => {
         e.preventDefault();
-        axios.post('/api-auth-token/', { username: userName, password }).then((data) => {
-            if(data.data.token && data.status === 200) { 
-                setAuthToken(data.data.token)
-                setLoggedIn(true)
-            } else {
-                setIsError(true)
-            }
-        }).catch((err) => {
-            setIsError(true)
-        })
+        axios
+            .post("/api-auth-token/", { username: userName, password })
+            .then(data => {
+                if (data.data.token && data.status === 200) {
+                    setAuthToken(data.data.token);
+                    setLoggedIn(true);
+                } else {
+                    setIsError(true);
+                }
+            })
+            .catch(err => {
+                setIsError(true);
+            });
+    };
+
+    if (isLoggedIn) {
+        return <Redirect to={referer} />;
     }
-   
-    if(isLoggedIn){
-        return <Redirect to={referer} /> 
-    }
-    
+
     return (
         <Form id="login-form">
             <h3 className="display-3">Login</h3>
             <FormGroup>
                 <Label>Username</Label>
-                <Input 
-                    onChange={(e) => setUserName(e.target.value)}
+                <Input
+                    onChange={e => setUserName(e.target.value)}
                     value={userName}
                     name="username"
                     id="username"
@@ -47,8 +50,8 @@ export default function Login(props) {
             </FormGroup>
             <FormGroup>
                 <Label>Password</Label>
-                <Input 
-                    onChange={(e) => setPassword(e.target.value)}
+                <Input
+                    onChange={e => setPassword(e.target.value)}
                     value={password}
                     name="password"
                     id="password"
@@ -57,9 +60,10 @@ export default function Login(props) {
                     placeholder="Password"
                 />
             </FormGroup>
-            <Button type="submit" onClick={handleSubmit}>Submit</Button>
-            { isError && <p>An error has occured</p>}
+            <Button type="submit" onClick={handleSubmit}>
+                Submit
+            </Button>
+            {isError && <p>An error has occured</p>}
         </Form>
-    )
-    
+    );
 }
