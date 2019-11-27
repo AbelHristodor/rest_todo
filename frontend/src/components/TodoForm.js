@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, FormGroup, Label, Input, Button } from "reactstrap";
+import { Form, FormGroup, Input, Button, Col } from "reactstrap";
 import axios from "axios";
 import { useAuth } from "../context/Auth";
 
@@ -39,23 +39,31 @@ export default function TodoForm(props) {
     };
 
     return (
-        <Form id="add-todo">
-            <FormGroup>
-                <Label>Name</Label>
-                <Input
-                    onChange={e => setTodo(e.target.value)}
-                    value={todo}
-                    name="todo-name"
-                    id="todo-name"
-                    type="text"
-                    required
-                    placeholder="Add Todo"
-                />
-            </FormGroup>
-            <Button type="submit" onClick={handleSubmit}>
-                Add
-            </Button>
-            {isError && <p>An error has occured</p>}
+        <Form id="add-todo" className="container row my-2">
+            <Col md="6">
+                <FormGroup>
+                    <Input
+                        onChange={e => setTodo(e.target.value)}
+                        value={todo}
+                        name="todo-name"
+                        id="todo-name"
+                        type="text"
+                        required
+                        placeholder="Add Todo"
+                    />
+                </FormGroup>
+            </Col>
+            <Col md="2">
+                <Button
+                    type="submit"
+                    onClick={handleSubmit}
+                    outline
+                    color="primary"
+                >
+                    Add
+                </Button>
+                {isError && <p>An error has occured</p>}
+            </Col>
         </Form>
     );
 }

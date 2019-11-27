@@ -3,3 +3,27 @@
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
 }
+
+.home a:hover{
+    color:  white !important;
+    border-color: #0275d8 !important;
+    background-color: #0275d8;
+    transition: background-color .3s;
+}
+
+.todoIcon {
+    border: none !important;
+    background-color: white;
+    color: black
+}
+
+.todoIcon:hover {
+    color: red;
+    transition: color .3s;
+}
+
+.ruler {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+}

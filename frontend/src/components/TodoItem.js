@@ -29,12 +29,20 @@ export default function TodoItem(props) {
         <ListGroupItem>
             <p>{props.todo.name}</p>
             {props.todo.is_completed ? (
-                <button type="button" onClick={handleClick}>
+                <button
+                    type="button"
+                    onClick={handleClick}
+                    className="todoIcon"
+                >
                     {" "}
                     <FaTrashAlt />{" "}
                 </button>
             ) : (
-                <button type="button" onClick={handleClick}>
+                <button
+                    type="button"
+                    onClick={handleClick}
+                    className="todoIcon"
+                >
                     <FaCheckCircle />
                 </button>
             )}

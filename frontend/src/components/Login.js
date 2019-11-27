@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import {
+    Button,
+    Form,
+    FormGroup,
+    Label,
+    Input,
+    Row,
+    Col,
+    Jumbotron
+} from "reactstrap";
 import { Redirect } from "react-router-dom";
 import { useAuth } from "../context/Auth";
 import axios from "axios";
@@ -34,36 +43,51 @@ export default function Login(props) {
     }
 
     return (
-        <Form id="login-form">
-            <h3 className="display-3">Login</h3>
-            <FormGroup>
-                <Label>Username</Label>
-                <Input
-                    onChange={e => setUserName(e.target.value)}
-                    value={userName}
-                    name="username"
-                    id="username"
-                    type="text"
-                    required
-                    placeholder="Username"
-                />
-            </FormGroup>
-            <FormGroup>
-                <Label>Password</Label>
-                <Input
-                    onChange={e => setPassword(e.target.value)}
-                    value={password}
-                    name="password"
-                    id="password"
-                    type="password"
-                    required
-                    placeholder="Password"
-                />
-            </FormGroup>
-            <Button type="submit" onClick={handleSubmit}>
-                Submit
-            </Button>
-            {isError && <p>An error has occured</p>}
-        </Form>
+        <Row>
+            <Col md="2"></Col>
+            <Col md="8" sm="12">
+                <Jumbotron>
+                    <Form id="login-form" className="container col-md-8">
+                        <h3 className="display-3">Login</h3>
+                        <FormGroup>
+                            <Label>Username</Label>
+                            <Input
+                                onChange={e => setUserName(e.target.value)}
+                                value={userName}
+                                name="username"
+                                id="username"
+                                type="text"
+                                required
+                                placeholder="Username"
+                                className="form-control"
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label>Password</Label>
+                            <Input
+                                onChange={e => setPassword(e.target.value)}
+                                value={password}
+                                name="password"
+                                id="password"
+                                type="password"
+                                required
+                                placeholder="Password"
+                                className="form-control"
+                            />
+                        </FormGroup>
+                        <Button
+                            type="submit"
+                            onClick={handleSubmit}
+                            outline
+                            color="primary"
+                        >
+                            Submit
+                        </Button>
+                        {isError && <p>An error has occured</p>}
+                    </Form>
+                </Jumbotron>
+            </Col>
+            <Col md="2"></Col>
+        </Row>
     );
 }

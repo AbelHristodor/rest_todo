@@ -47,10 +47,10 @@ export default function TodoList() {
     }, [fetched, setFetched, getTodos]);
 
     return (
-        <div>
+        <div className="container jumbotron bg-white">
+            <p className="display-4">Todo Page</p>
             <TodoForm refresh={handleRefresh} />
-            <ListGroup>
-                <p className="lead">Todos:</p>
+            <ListGroup className="col-md-6">
                 {todos.map(
                     todo =>
                         !todo.is_completed && (
@@ -58,11 +58,16 @@ export default function TodoList() {
                                 todo={todo}
                                 key={todo.id}
                                 refresh={handleRefresh}
+                                className="list-group-item"
                             />
                         )
                 )}
+                {todos.length !== 0 ? (
+                    <hr className="ruler" />
+                ) : (
+                    <p>No todos available, try adding one.</p>
+                )}
 
-                <p className="lead">Completed:</p>
                 {todos.map(
                     todo =>
                         todo.is_completed && (
@@ -70,11 +75,16 @@ export default function TodoList() {
                                 todo={todo}
                                 key={todo.id}
                                 refresh={handleRefresh}
+                                className="list-group-item completed"
                             />
                         )
                 )}
 
-                {isError && <p>An error has occured</p>}
+                {isError && (
+                    <div class="alert alert-danger" role="alert">
+                        An error has occured
+                    </div>
+                )}
             </ListGroup>
         </div>
     );
