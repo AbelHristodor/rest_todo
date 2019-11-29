@@ -19,7 +19,7 @@ export default function Login(props) {
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const { setAuthToken } = useAuth();
-    const referer = "/";
+    const referer = props.location.referer || "/";
 
     const handleSubmit = e => {
         e.preventDefault();

@@ -25,8 +25,8 @@ export default function TodoList() {
                     setTodos([
                         ...data.data.sort((a, b) => {
                             return (
-                                Date.parse(a.created_on) -
-                                Date.parse(b.created_on)
+                                Date.parse(b.created_on) -
+                                Date.parse(a.created_on)
                             );
                         })
                     ]);
